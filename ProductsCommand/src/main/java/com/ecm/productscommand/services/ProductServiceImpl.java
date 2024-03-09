@@ -1,5 +1,6 @@
 package com.ecm.productscommand.services;
 
+import com.ecm.productscommand.events.MessageQueues;
 import com.ecm.productscommand.exceptions.CustomException;
 import com.ecm.productscommand.models.Product;
 import com.ecm.productscommand.repositories.ProductRepository;
@@ -13,14 +14,18 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
+    private final MessageQueues queues;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, MessageQueues queues) {
         this.productRepository = productRepository;
+        this.queues = queues;
     }
 
     @Override
     public Product create(Product product) {
-        return productRepository.save(product);
+        Product result = productRepository.save(product);
+        queues.products.create.publish(product);
+        return result;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.ecm.productscommand.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +19,10 @@ public class Product {
     private String description;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     public List<Photo> photos;
-    private final LocalDateTime created;
-    private LocalDateTime updated;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public LocalDateTime created;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public LocalDateTime updated;
 
     public Product(){
         this.created = LocalDateTime.now();
