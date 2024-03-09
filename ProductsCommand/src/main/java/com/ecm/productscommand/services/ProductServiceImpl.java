@@ -24,7 +24,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product create(Product product) {
         Product result = productRepository.save(product);
-        queues.products.create.publish(product);
+        queues.products.create.publish(result);
         return result;
     }
 
@@ -40,8 +40,9 @@ public class ProductServiceImpl implements ProductService{
         existingProduct.setName(product.getName());
         existingProduct.setPrice(product.getPrice());
         existingProduct.setPhotos(product.getPhotos());
-
-        return productRepository.save(existingProduct);
+        Product updatedProduct = productRepository.save(existingProduct);
+        queues.products.update.publish(updatedProduct);
+        return updatedProduct;
     }
 
     @Override
@@ -51,5 +52,6 @@ public class ProductServiceImpl implements ProductService{
             throw new CustomException("Product was not found.", HttpStatus.NOT_FOUND);
         }
         productRepository.deleteById(id);
+        queues.products.delete.publish(id);
     }
 }
