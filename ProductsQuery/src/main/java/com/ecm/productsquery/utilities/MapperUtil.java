@@ -48,7 +48,7 @@ public interface MapperUtil {
         if (!map.containsKey(fieldName)) {
             return;
         }
-        else if (field.getType().isPrimitive()) {
+        else if (isPrimitive(field)) {
             setPrimitiveValue(field, object, value);
         }
         else if (field.getType().isEnum()) {
@@ -63,6 +63,15 @@ public interface MapperUtil {
         else {
             field.set(object, value);
         }
+    }
+
+    private boolean isPrimitive(Field field){
+        return field.getType().isPrimitive() ||
+                field.getType().equals(Integer.class) ||
+                field.getType().equals(Double.class) ||
+                field.getType().equals(Boolean.class) ||
+                field.getType().equals(Character.class) ||
+                field.getType().equals(Long.class);
     }
 
     // Recursively calls the parent method to set up the nested object first.
@@ -102,14 +111,20 @@ public interface MapperUtil {
 
     // Responsible for putting the primitive values.
     private <T> void setPrimitiveValue(Field field, T object, Object value) throws IllegalAccessException {
-        if (field.getType().equals(int.class)) {
-            field.setInt(object, (Integer) value);
-        } else if (field.getType().equals(double.class)) {
-            field.setDouble(object, (Double) value);
-        } else if (field.getType().equals(boolean.class)) {
-            field.setBoolean(object, (Boolean) value);
-        } else if (field.getType().equals(char.class)) {
-            field.setChar(object, (Character) value);
+        if (field.getType().equals(int.class) || field.getType().equals(Integer.class)) {
+            field.setInt(object, Integer.parseInt(String.valueOf(value)));
+        }
+        else if (field.getType().equals(double.class) || field.getType().equals(Double.class)) {
+            field.setDouble(object, Double.parseDouble(String.valueOf(value)));
+        }
+        else if (field.getType().equals(boolean.class) || field.getType().equals(Boolean.class)) {
+            field.setBoolean(object, Boolean.parseBoolean(String.valueOf(value)));
+        }
+        else if (field.getType().equals(char.class) || field.getType().equals(Character.class)) {
+            field.setChar(object, String.valueOf(value).charAt(0));
+        }
+        else if (field.getType().equals(long.class) || field.getType().equals(Long.class)) {
+            field.setLong(object, Long.parseLong(String.valueOf(value)));
         }
     }
 }

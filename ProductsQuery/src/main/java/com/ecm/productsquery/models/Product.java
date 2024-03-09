@@ -1,5 +1,6 @@
 package com.ecm.productsquery.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -11,6 +12,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @NoArgsConstructor
 @Builder
 @Document(indexName = "product", createIndex = false)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
     @Id
     private Integer id;
