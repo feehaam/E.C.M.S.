@@ -1,4 +1,4 @@
-package com.ecm.productscommand.events;
+package com.ecm.productsquery.events.core;
 
 import lombok.*;
 
@@ -7,6 +7,6 @@ import java.time.LocalDateTime;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor @Builder
 public class Message {
     private String eventType;
-    public LocalDateTime executionTime;
+    private LocalDateTime executionTime;
     private Object data;
 }

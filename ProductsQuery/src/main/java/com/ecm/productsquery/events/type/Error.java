@@ -1,7 +1,7 @@
-package com.ecm.productscommand.events.type;
+package com.ecm.productsquery.events.type;
 
-import com.ecm.productscommand.events.core.MessageQueuePublisher;
-import com.ecm.productscommand.events.server.MessageQueueServer;
+import com.ecm.productsquery.events.core.MessageQueuePublisher;
+import com.ecm.productsquery.events.server.MessageQueueServer;
 
 public class Error extends MessageQueuePublisher {
     private final String queueName;

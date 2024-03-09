@@ -1,6 +1,6 @@
 package com.ecm.productscommand.services;
 
-import com.ecm.productscommand.events.MessageQueues;
+import com.ecm.productscommand.events.core.MessageQueues;
 import com.ecm.productscommand.exceptions.CustomException;
 import com.ecm.productscommand.models.Product;
 import com.ecm.productscommand.repositories.ProductRepository;

@@ -1,4 +1,4 @@
-package com.ecm.productscommand.events;
+package com.ecm.productscommand.events.core;
 
 import com.ecm.productscommand.events.server.MessageQueueServer;
 import com.ecm.productscommand.events.type.*;
